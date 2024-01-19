@@ -2,6 +2,16 @@ import os
 import os.path
 import mimetypes
 
+
+i = 1
+start = input('起始数字：').strip()
+if start.isdigit():
+    i = int(start)
+
+pre_name = input('输入文件前缀：').strip()
+if pre_name == '' or not pre_name.isidentifier():
+    pre_name = 1
+
 address_dir = os.path.dirname(__file__)  # 拿到目录名
 address_content_old = os.listdir(address_dir)  # 拿到目录中的每个文件名
 address_dir_content_new = []  # 待修改的文件名
@@ -10,9 +20,11 @@ for adr_file in address_content_old:  # 判断是否为需要更改的文件,并
     result = mimetypes.guess_type(adr_whole)[0]
     if result and result.startswith('video'):
         address_dir_content_new.append(adr_whole)
-i = 1
-开始修改
+
+# 开始修改
 for file_name_old in address_dir_content_new:
     appendix = os.path.splitext(file_name_old)[1]  # 分隔出后缀名
-    os.rename(file_name_old, os.path.join(address_dir, f'1（{i}）' + appendix))
+    os.rename(file_name_old, os.path.join(address_dir, f'{pre_name}（{i}）' + appendix))
     i += 1
+
+
